@@ -1,0 +1,255 @@
+{% extends "base01.html" %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+
+{% endblock %}
+
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<div class="container" align="center">
+
+    <div class="container"> 
+        {% with messages =  get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+              <center> 
+                <div class="alert alert-success" role="alert">
+                  {{ message }}
+                </div>
+              </center>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+      
+    
+</div>
+
+<div class="container">
+  <div class="row profile">
+  <div class="col-md-3">
+    <div class="profile-sidebar">
+      <!-- SIDEBAR USERPIC -->
+      <div class="profile-userpic">
+        <img src="{{ url_for('static' , filename='uploads/images/') }}{{user.image_profile_name}}" class="img-responsive" alt="">
+      </div>
+      <!-- END SIDEBAR USERPIC -->
+      <!-- SIDEBAR USER TITLE -->
+      <div class="profile-usertitle">
+        <div class="profile-usertitle-name">
+          {{user.name}}
+          <h5>+{{user.phone_number}}</h5>
+        </div>
+        <div class="profile-usertitle-job">
+          {{user.user_role}}
+          <br>
+          {% if user.email_confirmation == "not_confirmed" %}
+            <p href="" class="emailnotconfirmed"> Email Not Confirmed</p>
+          {% elif user.email_confirmation == "confirmed" %}
+            <p class="emailconfirmed"> Email Confirmed </p>
+          {% endif %}
+        </div>
+      </div>
+      <!-- END SIDEBAR USER TITLE -->
+      <!-- SIDEBAR BUTTONS -->
+      <div class="profile-userbuttons">
+        <!-- <button type="button" class="btn btn-success btn-sm">Follow</button> -->
+        <!-- <button type="button" class="btn btn-danger btn-sm">Message</button> -->
+      </div>
+      <!-- END SIDEBAR BUTTONS -->
+      <!-- SIDEBAR MENU -->
+      <div class="profile-usermenu">
+        <ul class="nav">
+          <li class="">
+            <a href="#"  data-toggle="modal" data-target="#imageuploader">
+            <i class="glyphicon glyphicon glyphicon-camera" ></i>
+            Change Profile Picture </a>
+          </li>
+
+          <li class="">
+            <a href="#"  data-toggle="modal" data-target="#profileInfo">
+            <i class="glyphicon glyphicon glyphicon-user" ></i>
+            Change Profile info </a>
+          </li>
+          
+          <li>
+            <a href="#" data-toggle="modal" data-target="#helpCenter">
+            <i class="glyphicon glyphicon-flag"></i>
+            Help </a>
+          </li>
+        </ul>
+      </div>
+      <!-- END MENU -->
+
+      <!-- Modal Image uploader-->
+      <div class="modal fade" id="imageuploader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Upload Your Profile Picture</h4>
+            </div>
+            <div class="modal-body">
+
+              <!-- form to upload profile picture -->
+              <form action="/profile" method="POST" enctype="multipart/form-data">
+
+                <div class="form-group">
+                  <label>Select image</label>
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" name="image" id="image">
+                    <label class="custom-file-label" for="image">Select image...</label>
+                  </div>
+                </div>
+        
+                <button type="submit" class="btn btn-primary">Upload</button>
+        
+              </form>
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal help center-->
+      <div class="modal fade" id="helpCenter" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Getting help</h4>
+            </div>
+            <div class="modal-body">
+              <!-- help center-->
+              
+        
+                
+        
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Profie info-->
+      <div class="modal fade" id="profileInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Profile Information</h4>
+            </div>
+            <div class="modal-body">
+              <!-- help center-->
+              
+        
+                
+        
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <div class="col-md-9">
+          <div class="profile-content">
+              <div class="row">
+
+                <div class="col-md-4">
+
+                  <div class="panel panel-info">
+                    <div class="panel-heading">Panel heading without title</div>
+                    <div class="panel-body">
+                      Panel content
+                    </div>
+                  </div>
+
+                </div>
+                  
+                <div class="col-md-4">
+
+                  <div class="panel panel-info">
+                    <div class="panel-heading">Panel heading without title</div>
+                    <div class="panel-body">
+                      Panel content
+                    </div>
+                  </div>
+
+                </div>
+
+                
+                <div class="col-md-4">
+
+                  <div class="panel panel-info">
+                    <div class="panel-heading">Panel heading without title</div>
+                    <div class="panel-body">
+                      Panel content
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+          </div>
+  </div>
+</div>
+</div>
+
+<div class="container" > 
+  <div class="row">
+
+    <div class="col-sm-6 col-md-4">
+
+    </div>
+
+    <div class="col-md-6">
+
+        
+    </div>
+
+    <div class="col-md-6">
+
+        
+        
+    </div>
+</div>
+
+</div>
+
+
+<!-- Floating btn --> 
+<a href="{{url_for('addstore')}}"><button type="button" class="floating-btn-add" > + </button></a>
+<a href="#"><button type="button" class="floating-btn-update" ><img src="{{ url_for('static' , filename='images/update.svg') }}" height="20" width="20"></button></a>
+<a href="#"><button type="button" class="floating-btn-delete" ><img src="{{ url_for('static' , filename='images/rubbish.svg') }}" height="20" width="20"></button></a>
+
+
+{{ super() }}          
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+
+  
+{% endblock %}

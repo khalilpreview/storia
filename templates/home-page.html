@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block styles %}
+{{super()}}
+
+{% endblock %}
+
+{% block content %}
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#"> <img src="{{ url_for('static', filename='images/logo3.svg')}}" height="30" width="30" class="d-inline-block align-top"> Storia  </a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse order-3">
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#"> Home </a></li>
+          <li><a  href="{{ url_for('storia') }}"> Search Engine </a></li>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right ">
+
+             <li> <a href="{{ url_for('sign_in_page') }}"><img src="{{ url_for('static' , filename='images/sign-in.svg') }}" height="20" width="20">  Sign In</a></li>
+             <li> <a href="{{ url_for('sign_up_page') }}"> <img src="{{ url_for('static' , filename='images/sign-up.svg') }}" height="20" width="20"> Sign Up</a></li>
+          
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+
+  <div class="container myhomebody">
+    
+    <div class="starter-template" >
+      <center>
+        <img src="{{ url_for('static', filename='images/logo3.svg')}}" height="200" width="200" data-aos="flip-left"
+                                                                                                data-aos-easing="ease-out-cubic"
+                                                                                                data-aos-duration="1300">
+     </center>
+      <h1 data-aos="zoom-in">Welcome to Storia</h1>
+      <p class="lead" data-aos="zoom-in">The largest data base of stores in Algeria.</p>
+      <p class="lead" data-aos="zoom-in">By Preview-Lab.</p>
+    </div>
+
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-md-4" align="center">
+          
+        </div>
+        <div class="col-md-4" align="center">
+          
+        </div>
+        <div class="col-md-4" align="center">
+          
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <!-- /.container -->
+
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-4">
+
+      </div>
+
+      <div class="col-md-4">
+
+      </div>
+
+      <div class="col-md-4">
+
+      </div>
+
+    </div>
+  </div>
+
+
+{{ super() }}
+{% endblock %}
+
+
+
+{% block scripts %}
+{{ super() }}
+
+{% endblock %}

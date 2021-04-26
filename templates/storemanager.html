@@ -1,0 +1,92 @@
+{% extends "base01.html" %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+
+{% endblock %}
+
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<div class="container"> 
+    {% with messages =  get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+          <center> 
+            <div class="alert alert-success" role="alert">
+              {{ message }}
+            </div>
+          </center>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+
+    <h1 align="center">Welcome to your store manager.</h1>
+    <h2 align="center" >Here it's your dashboard be free to manage your stores.</h2>
+ 
+    <br>
+  
+
+    <div class="container">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <span class="badge"> {{ stores_lenght }} </span>
+          Stores Number
+        </li>
+      </ul>
+    </div>
+
+  
+
+  <div class="container" >
+    <div class="row">
+
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">Store name </div>
+          {% for store in stores %}
+            <div class="panel-body">{{ store.store_name }}</div>
+          {% endfor %}
+          </div>
+      </div>
+      
+
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">Store Ctegorie </div>
+          {% for store in stores %}
+            <div class="panel-body">{{ store.store_categorie }}</div>
+          {% endfor %}
+          </div>
+      </div>
+
+        <div class="col-md-4">
+          <div class="panel panel-default">
+            <div class="panel-heading">Stores Owner Name </div>
+            {% for store in stores %}
+              <div class="panel-body">{{ store.store_owner_name }}</div>
+            {% endfor %}
+            </div>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+
+
+    
+{{ super() }}   
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+  
+{% endblock %}

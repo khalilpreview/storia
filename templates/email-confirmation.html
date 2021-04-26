@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block title %}
+Email Confirmation
+{% endblock %}
+
+
+{% block styles %}
+{{super()}}
+
+
+
+{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    padding-top: 50px;
+  }
+</style>
+
+  <div class="container myhomebody" align="center" >
+    <img src="{{ url_for('static' , filename='images/email.png') }}" width="30%">
+    <h1> Your need to confirme your email! Please go and check your email.</h1>
+
+  </div>
+
+  
+{{ super() }}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+{% endblock %}

@@ -1,0 +1,193 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block styles %}
+{{super()}}
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" />
+
+{% endblock %}
+
+{% block content %}
+
+<style>
+  body {
+    padding-top: 60px;
+  }
+</style>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ url_for('storia') }}"><img src="{{ url_for('static', filename='images/logo3.svg')}}" height="30" width="30" class="d-inline-block align-top"> Storia </a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse order-3">
+        <ul class="nav navbar-nav navbar-right ">
+          
+          <li> <a href="#" data-toggle="modal" data-target="#feedBack"> <img src="{{ url_for('static' , filename='images/feedback.svg') }}" height="25" width="25"> Feedback </a></li>
+          <li> <a href="#" data-toggle="modal" data-target="#addingaStore"> <img src="{{ url_for('static' , filename='images/addstore2.svg') }}" height="25" width="25"> Add Store </a></li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!--/.nav-end -->
+
+{% for store in stores%}
+  <!-- Store Container -->
+  <div id="storecontainer">
+
+    <div id='mapid'>
+    </div>
+
+    <h1 class="padclass" align="center">{{store.store_description}}</h1>
+    
+    
+    <!-- Store gallery -->
+    <div class="container padclass">
+      
+      <div class="gallery" id="gallery">
+        {% for image in mypath %}
+
+            
+              <div class="gallery-item">
+                  <div class="content">
+                    <img src="{{ url_for('static' , filename='uploads/images/') }}{{store.store_picture}}/{{image}}" alt="">
+                  </div>
+              </div>
+            
+
+        {% endfor %}
+      </div>
+
+      
+
+    </div>
+    <!-- Store gallery ends -->  
+  
+     <!-- Store gallery Script -->
+     <script>
+      var gallery = document.querySelector('#gallery');
+      var getVal = function (elem, style) { return parseInt(window.getComputedStyle(elem).getPropertyValue(style)); };
+      var getHeight = function (item) { return item.querySelector('.content').getBoundingClientRect().height; };
+      var resizeAll = function () {
+          var altura = getVal(gallery, 'grid-auto-rows');
+          var gap = getVal(gallery, 'grid-row-gap');
+          gallery.querySelectorAll('.gallery-item').forEach(function (item) {
+              var el = item;
+              el.style.gridRowEnd = "span " + Math.ceil((getHeight(item) + gap) / (altura + gap));
+          });
+      };
+      gallery.querySelectorAll('img').forEach(function (item) {
+          item.classList.add('byebye');
+          if (item.complete) {
+              console.log(item.src);
+          }
+          else {
+              item.addEventListener('load', function () {
+                  var altura = getVal(gallery, 'grid-auto-rows');
+                  var gap = getVal(gallery, 'grid-row-gap');
+                  var gitem = item.parentElement.parentElement;
+                  gitem.style.gridRowEnd = "span " + Math.ceil((getHeight(gitem) + gap) / (altura + gap));
+                  item.classList.remove('byebye');
+              });
+          }
+      });
+      window.addEventListener('resize', resizeAll);
+      gallery.querySelectorAll('.gallery-item').forEach(function (item) {
+          item.addEventListener('click', function () {        
+              item.classList.toggle('full');        
+          });
+      });
+
+     </script>
+
+  </div>
+
+
+   <!-- feedback Modal -->
+   <div class="modal fade" id="feedBack" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Give us your Feedback </h4>
+        </div>
+        <div class="modal-body">
+          <!-- help center-->
+          
+    
+            
+    
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+   </div>
+
+   <!-- addstore Modal -->
+   <div class="modal fade" id="addingaStore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Add your Store</h4>
+        </div>
+        <div class="modal-body">
+          <!-- feedback center-->
+          
+    
+            
+    
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+   </div>
+
+ 
+
+  <!-- Store Map Script -->
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoia2hhbGlscHJldmlldyIsImEiOiJjazlsenJ6aHAwNXRsM21ud3V4ZXQwazl5In0.jxYJQIjQnvpPzPvBjgCxeA';
+    var map = new mapboxgl.Map({
+    container: 'mapid',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [{{position[0]}},{{position[1]}}],
+    zoom: 12
+
+    });
+
+    var popup = new mapboxgl.Popup({ closeOnClick: false })
+    .setLngLat([{{position[0]}},{{position[1]}}])
+    .setHTML('<h3>{{store.store_name.upper()}}</h3>')
+    .addTo(map);   
+
+  </script>
+
+{% endfor %} 
+
+{{ super() }}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+{% endblock %}

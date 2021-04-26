@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block styles %}
+{{super()}}
+
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" />
+
+{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    padding-top: 50px;
+  }
+</style>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{{ url_for('storia') }}"><img src="{{ url_for('static', filename='images/logo3.svg')}}" height="30" width="30" class="d-inline-block align-top"> Storia </a>
+    </div>
+    <div id="navbar" class="collapse navbar-collapse order-3">
+      <ul class="nav navbar-nav navbar-right ">
+
+        <li> <a href="#" data-toggle="modal" data-target="#feedBack"> <img src="{{ url_for('static' , filename='images/feedback.svg') }}" height="25" width="25"> Feedback </a></li>
+        <li> <a href="#" data-toggle="modal" data-target="#addingaStore"> <img src="{{ url_for('static' , filename='images/addstore2.svg') }}" height="25" width="25"> Add Store </a></li>
+
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div>
+</nav>
+
+
+<div class="container myhomebody" align="center" >
+  <h1>This is a page for testing maps<p id="lnglat"></p></h1>
+  
+  <div id='mapid'></div>
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoia2hhbGlscHJldmlldyIsImEiOiJjazlsenJ6aHAwNXRsM21ud3V4ZXQwazl5In0.jxYJQIjQnvpPzPvBjgCxeA';
+    var map = new mapboxgl.Map({
+    container: 'mapid',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [0.09511939203201791,35.94642591036265],
+    zoom: 12
+
+    });
+
+    var popup = new mapboxgl.Popup({ closeOnClick: false })
+    .setLngLat([0.09511939203201791,35.94642591036265])
+    .setHTML('<h3>Storia!</h3>')
+    .addTo(map);
+        
+
+    
+
+  </script>
+
+
+  
+</div>
+
+  
+{{ super() }}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+
+{% endblock %}
+
+{% block navbar %}
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">Storia Panel</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="{{ url_for('storia') }}"> Storia </a></li>
+        <li class="dropdown">
+          
+        </li>
+      </ul>
+      
+      <ul class="nav navbar-nav navbar-right navbarstylemy">
+        <li><a href="{{ url_for('profile') }}">Welcome {{ username_view }}</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> Acount <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="{{ url_for('profile') }}"><img src="{{ url_for('static' , filename='images/profile.svg') }}" height="20" width="20"> Profile</a></li>
+            {% if user.user_role == "Admin" %}
+                <li><a href="{{ url_for('dashboard') }}"><img src="{{ url_for('static' , filename='images/dashboard.svg') }}" height="20" width="20"> Dashboard</a></li>
+                <li><a href="{{ url_for('storemanager') }}"><img src="{{ url_for('static' , filename='images/shop.svg') }}"height="20" width="20"> Store Manager </a></li>
+            {% endif %}
+           
+            <li><a href="{{ url_for('logout') }}"><img src="{{ url_for('static' , filename='images/sign-out.svg') }}" height="20" width="20"> Logout</a></li>
+            
+          </ul>
+        </li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+
+
+
+{% endblock %}
+
+{% block content %}
+    
+
+
+<footer class="copyright"><p  align="center"> Copyright © In the sooner future , Projet-Z Company. </p></footer>         
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+  
+{% endblock %}

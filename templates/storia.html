@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+
+{% block styles %}
+{{super()}}
+
+{% endblock %}
+
+{% block content %}
+
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ url_for('storia') }}"><img src="{{ url_for('static', filename='images/logo3.svg')}}" height="30" width="30" class="d-inline-block align-top"> Storia </a>
+      </div>
+      <div id="navbar" class="collapse navbar-collapse order-3">
+        <ul class="nav navbar-nav navbar-right ">
+
+          <li> <a href="#" data-toggle="modal" data-target="#feedBack"> <img src="{{ url_for('static' , filename='images/feedback.svg') }}" height="25" width="25"> Feedback </a></li>
+          <li> <a href="#" data-toggle="modal" data-target="#addingaStore"> <img src="{{ url_for('static' , filename='images/addstore2.svg') }}" height="25" width="25"> Add Store </a></li>
+
+        </ul>
+      </div><!--/.nav-collapse -->
+    </div>
+  </nav>
+
+  <div class="container myhomebody">
+    
+    <div class="starter-template" >
+      
+        <img src="{{ url_for('static', filename='images/logo3.svg')}}" height="150" width="150" data-aos="flip-left"
+                                                                                                data-aos-easing="ease-out-cubic"
+                                                                                                data-aos-duration="1300">
+    
+      <h1 data-aos="zoom-in">Welcome to Storia</h1>
+      <p class="lead" data-aos="zoom-in">This it will be like a starter project .<br> for the largest store database in algeria.</p>
+      
+
+    </div>
+    <form classs ="form-signin" method="POST" action="/storia">
+      <div class="input-group input-group-lg">
+        {{  form.hidden_tag() }}
+        {{  wtf.form_field(form.search_barr) }}
+
+        <span class="input-group-btn widthcat">
+          {{  wtf.form_field(form.store_categories) }} 
+          
+        </span>
+        <span class="input-group-btn ">
+          {{  wtf.form_field(form.submit) }}
+        </span>
+          
+      </div><!-- /input-group -->
+    </form>
+  
+  </div><!-- /.container -->
+
+
+
+
+
+  <div class="container">
+    <div class="row">
+
+      {% for store in stores %}
+          <div class="col-sm-6 col-md-4">
+             <div class="thumbnail" data-aos="zoom-in">
+               <img src="{{ url_for('static' , filename='images/logo2.svg') }}" alt="..." height="150" width="150">
+               <div class="caption">
+                  <h3>{{ store.store_name }}</h3>
+                  <p>{{ store.store_categorie }}</p>
+                  <p>{{ store.store_province }}</p>
+                  <p>{{ store.store_description }}</p>
+                  <p><a href="/store/{{store.store_name}}" class="btn btn-danger" role="button">Go!</a></p>
+               </div>
+            </div>
+          </div>
+      {% endfor %}
+
+    </div>
+  </div>
+  
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="feedBack" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Give us your Feedback </h4>
+        </div>
+        <div class="modal-body">
+          <!-- help center-->
+          
+    
+            
+    
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- Modal -->
+   <div class="modal fade" id="addingaStore" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Add your Store</h4>
+        </div>
+        <div class="modal-body">
+          <!-- feedback center-->
+          
+    
+            
+    
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  
+{{ super() }}
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+{% endblock %}

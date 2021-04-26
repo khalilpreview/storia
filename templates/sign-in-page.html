@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+
+{% block title %}
+Login
+{% endblock %}
+
+
+
+
+{% block styles %}
+{{super()}}
+{% endblock %}
+
+
+
+{% block content %}
+
+
+     <div class="container padclass">
+       
+      <div class="container"> 
+        {% with messages =  get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+              <center> 
+                <div class="alert alert-warning warningmessage" role="alert">
+                  {{ message }}
+                </div>
+              </center>
+          {% endfor %}
+        {% endif %}
+        {% endwith %}
+        </div>
+
+       <center>
+         <img src="{{ url_for('static', filename='images/logo3.svg')}}" height="150" width="150" data-aos="flip-up">
+      </center>
+      <form class="form-signin" method="POST" action="/sign-in">
+        
+        <h2 class="form-signin-heading">Please Sign in</h2>
+        {{ form.hidden_tag() }}
+        {{ wtf.form_field(form.username) }}
+        {{ wtf.form_field(form.password) }}
+        {{ wtf.form_field(form.remember) }}
+       
+        
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+      
+      <h5 align="center">If you don't have an account <a href="{{ url_for('sign_up_page') }}"> Sign Up.</a></h5> 
+      <h5 align="center">Forgotten account? <a href="">Click here.</a></h5>
+    </div> <!-- /container -->
+
+{{ super() }}
+{% endblock %}
+
+
+
+{% block scripts %}
+{{ super() }}
+{% endblock %}

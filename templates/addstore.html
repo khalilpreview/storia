@@ -1,0 +1,204 @@
+{% extends "base01.html" %}
+
+{% block title %}
+{{ title }}
+{% endblock %}
+
+{% block styles %}
+{{ super() }}
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js"></script>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" />
+{% endblock %}
+
+{% block navbar %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+
+<!-- Flash Messaging container -->
+<div class="container"> 
+    {% with messages =  get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+          <center> 
+            <div class="alert alert-success" role="alert">
+              {{ message }}
+            </div>
+          </center>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+</div>
+<!-- Flash Messaging container ends -->
+
+<form class="form-addingstore" method="POST" action="/addstore" enctype="multipart/form-data">
+
+    {{ form.csrf_token }} 
+
+    <div class="container" align="center">
+        
+        <h1> 3 Easy steps to add your store. </h1>
+        
+        <div class="row">
+            
+            <!-- Position container fields -->
+            <div class="col-md-4">
+                
+                <img src="{{ url_for('static' , filename='images/location.svg') }}" height="100" width="100">
+                <h2> <img src="{{ url_for('static' , filename='images/one.svg') }}" height="30" width="30"> Localise your store </h2>
+
+                {{ wtf.form_field(form.store_country) }}
+                {{ wtf.form_field(form.store_town) }}
+                {{ wtf.form_field(form.store_province) }}
+                {{ wtf.form_field(form.store_position) }}
+
+                <!-- Dynamic forms  -->
+                <script>
+                    let country_select = document.getElementById('store_country')
+                    let town_select = document.getElementById('store_town')
+                    let province_select = document.getElementById('store_province')
+
+                    country_select.onchange = function() {
+                        country = country_select.value;
+                        
+
+                        fetch('/api_v1/getCountries/' + country).then(function(response) {
+                            response.json().then(function(data) {
+                                let optionHTML ='';
+
+                                for (let town of data.position) {
+                                    optionHTML += '<option value="' + town.Town + '">'+ town.Town +'</option>';
+                                }
+                                
+                                town_select.innerHTML = optionHTML;
+                            });
+                        });
+                    }
+
+                    town_select.onchange = function() {
+                        town = town_select.value;
+                        
+
+                        fetch('/api_v1/getTowns/' + town).then(function(response) {
+                            response.json().then(function(data) {
+                                let optionHTML ='';
+
+                                for (let province of data.position) {
+                                    optionHTML += '<option value="' + province.Province + '">'+ province.Province +'</option>';
+                                }
+                                
+                                province_select.innerHTML = optionHTML;
+                            });
+                        });
+                    }
+
+                </script>
+                 <!-- Dynamic forms ends  -->
+
+                <!-- Map  -->
+                <div id="mapid"></div>
+                <script>
+                    mapboxgl.accessToken = 'pk.eyJ1Ijoia2hhbGlscHJldmlldyIsImEiOiJjazlsenJ6aHAwNXRsM21ud3V4ZXQwazl5In0.jxYJQIjQnvpPzPvBjgCxeA';
+                    var map = new mapboxgl.Map({
+                        container: 'mapid', // container id
+                        style: 'mapbox://styles/mapbox/streets-v11',
+                        center: [2.89 , 35.23], // starting position
+                        zoom: 3 // starting zoom
+                    });
+
+                    // draggable marker
+                    var marker = new mapboxgl.Marker({
+                    draggable: true
+                    })
+                        .setLngLat([2.89 , 35.23])
+                        .addTo(map);
+                        
+                        function onDragEnd() {
+                        var lngLat = marker.getLngLat();
+                        coordinates.style.display = 'block';
+                        
+                    }
+                    marker.on('dragend');
+
+                    // click to get lat and lng
+                    map.on('click', function(e) {
+                        var latlng = new String(e.lngLat);
+                        var latlng1 = latlng.slice(7);
+                        var finlatlng = latlng1.replace(")","");
+                        var positioninput = document.getElementById('store_position')
+                        positioninput.value = finlatlng.replace(" ","");
+                    });
+
+                    // Add geolocate control to the map.
+                    map.addControl(
+                    new mapboxgl.GeolocateControl({
+                    positionOptions: {
+                        enableHighAccuracy: true
+                    },
+                        trackUserLocation: true
+                    })
+                    );
+
+                </script>      
+                <!-- Map ends -->
+
+                <p>Drag The marker to your exact location and click to get your location Coordinate.</p>
+                  
+                
+            </div>
+            <!-- Position container fields ends -->
+
+            <div class="col-md-4">
+               
+                <img src="{{ url_for('static' , filename='images/camera.svg') }}" height="100" width="100">
+                <h2> <img src="{{ url_for('static' , filename='images/two.svg') }}" height="30" width="30"> Take pictures  </h2>
+
+                <!-- form to upload profile picture -->
+                <div class="form-group">
+                    <label>Select image</label>
+                    <div class="custom-file">
+                      <input type="file" name="files[]" multiple="true" autocomplete="off" required>
+                      <label class="custom-file-label" for="image">Select image...</label>
+                    </div>
+                </div>
+                
+                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure 
+                     dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                     Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+                </p>
+
+            </div>
+        
+            <!-- Store information container fields -->
+            <div class="col-md-4">
+                
+                    <img src="{{ url_for('static' , filename='images/info.svg') }}" height="100" width="100">
+                    <h2 class="form-signin-heading"><img src="{{ url_for('static' , filename='images/three.svg') }}" height="30" width="30"> Store Info  </h2>
+                     
+                    {{ wtf.form_field(form.store_owner_name) }} 
+                    {{ wtf.form_field(form.store_name) }}  
+                    {{ wtf.form_field(form.store_categories) }}
+                    {{ wtf.form_field(form.store_phone) }}
+                    {{ wtf.form_field(form.store_description) }}
+                    {{ wtf.form_field(form.store_tags) }}
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+                
+            </div>
+            <!-- Store information container fields ends -->
+            
+        </div>
+        
+    </div>
+
+</form>
+
+    
+{{ super() }}          
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+  
+{% endblock %}
