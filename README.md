@@ -1,6 +1,7 @@
 # Storia
 
 > Easy way to find Stores (Storia make you shopping easier)
+> > A smaill project i was working on 2 years ago, i am sharing that just for learning purpose. 
 
 ## Run
 
