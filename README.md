@@ -1,6 +1,6 @@
 # Storia
 
-Easy way to find Stores (Storia make you shopping easier)
+> Easy way to find Stores (Storia make you shopping easier)
 
 ## Run
 
@@ -11,11 +11,16 @@ linux: `source venv/bin/activate`
 `pip install requirements.txt`
 
 3- run the flask server:
-`python3 run-app.py`
+`python3 run_app.py`
 
 4- create the database:
 `python3`
 `from app import db`
 `db.create.all()`
 
-Done ;)
+## Screenshots
+
+![Example screenshot](./screenshoots/search.png)
+![Example screenshot](./screenshoots/home.png)
+![Example screenshot](./screenshoots/profile.png)
+![Example screenshot](./screenshoots/add-store.png)
