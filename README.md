@@ -3,7 +3,7 @@
 > Easy way to find Stores (Storia make you shopping easier)
 > > A smaill project i was working on 2 years ago, i am sharing that just for learning purpose. 
 
-> Open cinfig.cfg and put your keys here:</br>
+> Open config file config.cfg and put your keys here:</br>
 `# google recaptcha config`</br>
 `RECAPTCHA_PUBLIC_KEY= YOUR KEY HERE`</br>
 `RECAPTCHA_PRIVATE_KEY= YOUR KEY HERE` </br>
