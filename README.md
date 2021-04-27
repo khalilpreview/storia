@@ -3,13 +3,13 @@
 > Easy way to find Stores (Storia make you shopping easier)
 > > A smaill project i was working on 2 years ago, i am sharing that just for learning purpose. 
 
-> Open cinfig.cfg and put your keys here:
-`# google recaptcha config`
-`RECAPTCHA_PUBLIC_KEY= YOUR KEY HERE`
-`RECAPTCHA_PRIVATE_KEY= YOUR KEY HERE`
+> Open cinfig.cfg and put your keys here:</br>
+`# google recaptcha config`</br>
+`RECAPTCHA_PUBLIC_KEY= YOUR KEY HERE`</br>
+`RECAPTCHA_PRIVATE_KEY= YOUR KEY HERE` </br>
 
-`# config app and googlemaps`
-`GOOGLEMAPS_KEY = YOUR KEY HERE`
+`# config app and googlemaps` </br>
+`GOOGLEMAPS_KEY = YOUR KEY HERE` </br>
 
 ## Run
 
@@ -23,8 +23,8 @@ linux: `source venv/bin/activate`
 `python3 run_app.py`
 
 4- create the database: </br>
-`python3`
-`from app import db`
+`python3`</br>
+`from app import db`</br>
 `db.create.all()`
 
 ## Screenshots
