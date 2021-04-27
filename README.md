@@ -4,6 +4,7 @@
 > > A smaill project i was working on 2 years ago, i am sharing that just for learning purpose. 
 
 > Open config file config.cfg and put your keys here:</br>
+
 `# google recaptcha config`</br>
 `RECAPTCHA_PUBLIC_KEY= YOUR KEY HERE`</br>
 `RECAPTCHA_PRIVATE_KEY= YOUR KEY HERE` </br>
